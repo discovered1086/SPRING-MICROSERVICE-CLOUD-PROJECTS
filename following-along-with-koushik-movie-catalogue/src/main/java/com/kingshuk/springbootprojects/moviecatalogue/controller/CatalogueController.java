@@ -54,7 +54,7 @@ public class CatalogueController {
 				"http://localhost:8083/ratings/users/" + userId, HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Rating>>() {
 				});
-		
+			
 		List<Rating> userRatingslist = new ArrayList<>();
 		
 		if(userRatings.hasBody()) {
