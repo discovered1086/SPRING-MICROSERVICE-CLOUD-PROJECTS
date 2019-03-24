@@ -2,6 +2,7 @@ package com.kingshuk.microservices.followingjoshlong;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,10 +36,15 @@ public class FollowingAlongWithJoshLongApplication {
 	@Bean
 	CommandLineRunner runner(StudentRepository studentRepository) {
 		return args -> {
-			Arrays.asList(new Student("Kingshuk", "a@b.com"), new Student("Deeksha","c@d.com"))
-			.forEach(studentRepository::save);
+			List<Student> students = studentRepository.findAll();
 			
-			studentRepository.findAll().forEach(System.out::println);
+			if(students.isEmpty()) {
+				Arrays.asList(new Student("Kingshuk", "a@b.com"), new Student("Deeksha","c@d.com"))
+				.forEach(studentRepository::save);
+			}
+			
+			
+			students.forEach(System.out::println);
 		};
 	}
 
