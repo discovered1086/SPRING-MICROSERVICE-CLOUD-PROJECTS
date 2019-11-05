@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.kingshuk.springbootprojects.moviecatalogue.domain.CatalogueItem;
 import com.kingshuk.springbootprojects.moviecatalogue.domain.Movie;
 import com.kingshuk.springbootprojects.moviecatalogue.domain.Rating;
+import com.kingshuk.springbootprojects.moviecatalogue.domain.UserRating;
 
 @RestController
 @RequestMapping("/catalogue")
@@ -52,15 +53,15 @@ public class CatalogueController {
 		// Movie movie = restTemplate.getForObject("http://localhost:8082/movies/" +
 		// rating.getMovieId(), Movie.class);
 
-		ResponseEntity<List<Rating>> userRatings = restTemplate.exchange(
+		ResponseEntity<UserRating> userRatings = restTemplate.exchange(
 				"http://rating-service/ratings/users/" + userId, HttpMethod.GET, null,
-				new ParameterizedTypeReference<List<Rating>>() {
+				new ParameterizedTypeReference<UserRating>() {
 				});
 			
 		List<Rating> userRatingslist = new ArrayList<>();
 		
 		if(userRatings.hasBody()) {
-			userRatingslist.addAll(userRatings.getBody());
+			userRatingslist.addAll(userRatings.getBody().getRatings());
 		}
 
 		for (Rating rating : userRatingslist) {
