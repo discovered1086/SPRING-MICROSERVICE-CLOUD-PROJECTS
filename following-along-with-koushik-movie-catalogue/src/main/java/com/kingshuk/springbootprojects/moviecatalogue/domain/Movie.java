@@ -1,6 +1,7 @@
 package com.kingshuk.springbootprojects.moviecatalogue.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -14,6 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @ToString
+@Builder
 public class Movie {
 	
 	private String movieId;

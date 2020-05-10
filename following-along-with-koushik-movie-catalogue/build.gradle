@@ -28,4 +28,6 @@ dependencies {
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
 }
