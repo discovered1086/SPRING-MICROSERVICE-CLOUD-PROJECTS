@@ -15,6 +15,7 @@ import com.kingshuk.springbootprojects.moviecatalogue.domain.Movie;
 import com.kingshuk.springbootprojects.moviecatalogue.domain.Rating;
 import com.kingshuk.springbootprojects.moviecatalogue.domain.UserRating;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @Component
 public class ExternalAPIRequestProcessorImpl implements ExternalAPIRequestProcessor {
@@ -22,8 +23,13 @@ public class ExternalAPIRequestProcessorImpl implements ExternalAPIRequestProces
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Override
-	@HystrixCommand(fallbackMethod = "getFallbackRating")
+	@Override // @formatter:off
+	@HystrixCommand(fallbackMethod = "getFallbackRating",
+					threadPoolKey = "ratingInfoPool",
+					threadPoolProperties = {
+							@HystrixProperty(name = "coreSize", value = "20"),
+							@HystrixProperty(name = "maxQueueSize", value = "10")
+					})// @formatter:on
 	public List<Rating> getAllUserRatings(String userId) {
 
 		ResponseEntity<UserRating> userRatings = restTemplate.exchange("http://rating-service/ratings/users/" + userId,
@@ -39,8 +45,14 @@ public class ExternalAPIRequestProcessorImpl implements ExternalAPIRequestProces
 		return userRatingslist;
 	}
 
-	@Override
-	@HystrixCommand(fallbackMethod = "getFallbackMovie")
+	@Override // @formatter:off
+	@HystrixCommand(fallbackMethod = "getFallbackMovie",
+					commandProperties = {
+						@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
+						@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+						@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+						@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")
+					})// @formatter:on
 	public Movie getMovie(Rating rating) {
 		return restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
 	}
