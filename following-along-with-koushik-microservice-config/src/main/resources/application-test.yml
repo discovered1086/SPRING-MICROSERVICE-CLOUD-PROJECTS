@@ -1,0 +1,13 @@
+#person.name: Kinghshuk
+#my.greetings: Hello ${person.name}
+
+userLocation: "{Amit: 'New Jersey', Joy: 'Illinois', Mainak: 'Connecticut'}"
+
+my:
+ name: Deeksha
+ gender: FEMALE
+ age:  30
+ ist:
+    value: one,two,three
+
+management.endpoints.web.exposure.include: "*"
