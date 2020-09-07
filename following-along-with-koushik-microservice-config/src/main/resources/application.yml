@@ -11,5 +11,3 @@ my:
     value: one,two,three
 
 management.endpoints.web.exposure.include: "*"
-
-spring.profiles.active: test
