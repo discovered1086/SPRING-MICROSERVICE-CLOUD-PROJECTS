@@ -30,7 +30,7 @@ public class MyController {
 	@Autowired
 	private MyProperties myProperties;
 	
-	@Autowired
+	@Autowired 
 	private Environment environment;
 
 	@GetMapping("/hello")
