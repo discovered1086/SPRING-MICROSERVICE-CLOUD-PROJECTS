@@ -7,7 +7,7 @@ my:
  name: Deeksha
  gender: FEMALE
  age:  30
- ist:
+ list:
     value: one,two,three
 
 management.endpoints.web.exposure.include: "*"

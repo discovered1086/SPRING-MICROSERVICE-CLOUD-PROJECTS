@@ -1,0 +1,7 @@
+#Cloud related configurations
+#These configurations need to be evaluated before the other configurations are
+#evaluated. So we'll rename this file to bootstrap.properties
+#This application has to identify itself to the config server
+spring.application.name: my-config-client
+#Also we need to tell this application, where the config server lives
+spring.cloud.config.uri: http://localhost:8090
